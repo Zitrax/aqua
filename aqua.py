@@ -29,4 +29,10 @@ def read_temp():
         return temp_c, temp_f
     
 
-print(read_temp())
+def sse():
+    print "Content-Type: text/event-stream\n"
+    print "Event: aqua-temp"
+    for i in xrange(1):
+        print "data: %s\n" % read_temp()[0]
+
+sse()

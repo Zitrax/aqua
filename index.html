@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script type="text/javascript">
+      var source = new EventSource('/cgi-bin/aqua.py');
+
+      source.addEventListener('message', function(e) {
+        document.querySelector('#temp').innerHTML = e.data;
+      }, false);
+
+    </script>
+  </head>
+  <body>
+    <div id="temp" name="temp" style="font-size: 500%;">
+      [TIME]
+    </div>
+  </body>
+</html>
