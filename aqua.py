@@ -12,14 +12,13 @@ device_folder = glob.glob(base_dir + '28*')[0]
 device_file = device_folder + '/w1_slave'
  
 def read_temp_raw():
-    f = open(device_file, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+    with open(device_file, 'r') as f:
+        return f.readlines()
  
 def read_temp():
     lines = read_temp_raw()
     while lines[0].strip()[-3:] != 'YES':
+        print "CRC check failed, retrying"
         time.sleep(0.2)
         lines = read_temp_raw()
     equals_pos = lines[1].find('t=')
@@ -29,6 +28,5 @@ def read_temp():
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         return temp_c, temp_f
     
-while True:
-    print(read_temp())
-    time.sleep(1)
+
+print(read_temp())
