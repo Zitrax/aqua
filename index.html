@@ -4,15 +4,23 @@
     <script type="text/javascript">
       var source = new EventSource('/cgi-bin/aqua.py');
 
-      source.addEventListener('message', function(e) {
-        document.querySelector('#temp').innerHTML = e.data;
+      source.addEventListener('aqua-temp', function(e) {
+	document.querySelector('#temp').innerHTML = e.data;
+      }, false);
+
+      source.addEventListener('error', function(e) {
+	document.querySelector('#temp').innerHTML = "ERROR";
+      }, false);
+
+      source.addEventListener('open', function(e) {
+	document.querySelector('#temp').innerHTML = "OPEN";
       }, false);
 
     </script>
   </head>
   <body>
     <div id="temp" name="temp" style="font-size: 500%;">
-      [TIME]
+      [TEMP]
     </div>
   </body>
 </html>

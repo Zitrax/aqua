@@ -2,6 +2,7 @@
 
 import os
 import glob
+import sys
 import time
  
 os.system('/sbin/modprobe w1-gpio')
@@ -31,8 +32,10 @@ def read_temp():
 
 def sse():
     print "Content-Type: text/event-stream\n"
-    print "Event: aqua-temp"
-    for i in xrange(1):
+    while True:
+        print "event: aqua-temp"
         print "data: %s\n" % read_temp()[0]
+        sys.stdout.flush()
+        time.sleep(2)
 
 sse()
